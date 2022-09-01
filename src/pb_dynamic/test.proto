@@ -1,0 +1,8 @@
+// test.proto
+syntax = "proto3";
+package test;
+
+message UserInfo{
+	int64 id = 1;
+	string name = 2;
+}
