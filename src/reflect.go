@@ -5,21 +5,6 @@ import (
 	"reflect"
 )
 
-/*
-func do(val interface{}) {
-	switch val.(type) {
-	case int32:
-		fmt.Printf("int32\n")
-	case string:
-		fmt.Printf("string\n")
-	case []string:
-		fmt.Printf("[]string\n")
-	default:
-		fmt.Printf("unknown type")
-	}
-}
-*/
-
 func do(obj *Person) {
 	t := reflect.TypeOf(*obj)
 	v := reflect.ValueOf(obj).Elem()
