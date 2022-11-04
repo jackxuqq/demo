@@ -28,56 +28,6 @@ func replace(nums []int, curr int) {
 	return
 }
 
-/*
-func replace(nums []int, curr int) {
-	lg := len(nums)
-	for curr < lg {
-		left, right := 0, 0
-		left_exist, right_exist := false, false
-		if curr*2+1 < lg {
-			left = nums[curr*2+1]
-			left_exist = true
-		}
-		if curr*2+2 < lg {
-			right = nums[curr*2+2]
-			right_exist = true
-		}
-		if !left_exist {
-			break
-		}
-		if left_exist && !right_exist {
-			if left > nums[curr] {
-				nums[curr*2+1], nums[curr] = nums[curr], nums[curr*2+1]
-				curr = curr*2 + 1
-				continue
-			} else {
-				break
-			}
-		}
-		if left_exist && right_exist {
-			if left > right {
-				if left > nums[curr] {
-					nums[curr*2+1], nums[curr] = nums[curr], nums[curr*2+1]
-					curr = curr*2 + 1
-					continue
-				} else {
-					break
-				}
-			} else {
-				if right > nums[curr] {
-					nums[curr*2+2], nums[curr] = nums[curr], nums[curr*2+2]
-					curr = curr*2 + 2
-					continue
-				} else {
-					break
-				}
-			}
-		}
-
-	}
-}
-*/
-
 func makeBigHeap(nums []int) {
 	last := len(nums)/2 - 1
 	for ; last >= 0; last-- {
