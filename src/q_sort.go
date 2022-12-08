@@ -1,3 +1,4 @@
+// main test package
 package main
 
 import _ "fmt"
