@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
-import _ "strconv"
+import (
+	"fmt"
+	_ "strconv"
+)
 
 func test() {
 	s := "1234"
@@ -9,6 +11,14 @@ func test() {
 		fmt.Printf("%T\n", s[i])
 	}
 }
+
+func modify(s *string) {
+	(*s)[0] = 'a'
+}
 func main() {
 	test()
+
+	s := "1234"
+	modify(&s)
+	fmt.Printf("s:%s\n", s)
 }
