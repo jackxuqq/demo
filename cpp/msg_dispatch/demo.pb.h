@@ -44,21 +44,24 @@ struct TableStruct_demo_2eproto {
   static const uint32_t offsets[];
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_demo_2eproto;
+namespace demo {
 class AddReq;
 struct AddReqDefaultTypeInternal;
 extern AddReqDefaultTypeInternal _AddReq_default_instance_;
 class AddRsp;
 struct AddRspDefaultTypeInternal;
 extern AddRspDefaultTypeInternal _AddRsp_default_instance_;
+}  // namespace demo
 PROTOBUF_NAMESPACE_OPEN
-template<> ::AddReq* Arena::CreateMaybeMessage<::AddReq>(Arena*);
-template<> ::AddRsp* Arena::CreateMaybeMessage<::AddRsp>(Arena*);
+template<> ::demo::AddReq* Arena::CreateMaybeMessage<::demo::AddReq>(Arena*);
+template<> ::demo::AddRsp* Arena::CreateMaybeMessage<::demo::AddRsp>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
+namespace demo {
 
 // ===================================================================
 
 class AddReq final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:AddReq) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:demo.AddReq) */ {
  public:
   inline AddReq() : AddReq(nullptr) {}
   ~AddReq() override;
@@ -161,7 +164,7 @@ class AddReq final :
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "AddReq";
+    return "demo.AddReq";
   }
   protected:
   explicit AddReq(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -199,7 +202,7 @@ class AddReq final :
   void _internal_set_num2(int32_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:AddReq)
+  // @@protoc_insertion_point(class_scope:demo.AddReq)
  private:
   class _Internal;
 
@@ -217,7 +220,7 @@ class AddReq final :
 // -------------------------------------------------------------------
 
 class AddRsp final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:AddRsp) */ {
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:demo.AddRsp) */ {
  public:
   inline AddRsp() : AddRsp(nullptr) {}
   ~AddRsp() override;
@@ -320,7 +323,7 @@ class AddRsp final :
   private:
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "AddRsp";
+    return "demo.AddRsp";
   }
   protected:
   explicit AddRsp(::PROTOBUF_NAMESPACE_ID::Arena* arena,
@@ -348,7 +351,7 @@ class AddRsp final :
   void _internal_set_ret(int32_t value);
   public:
 
-  // @@protoc_insertion_point(class_scope:AddRsp)
+  // @@protoc_insertion_point(class_scope:demo.AddRsp)
  private:
   class _Internal;
 
@@ -381,7 +384,7 @@ inline int32_t AddReq::_internal_num1() const {
   return _impl_.num1_;
 }
 inline int32_t AddReq::num1() const {
-  // @@protoc_insertion_point(field_get:AddReq.num1)
+  // @@protoc_insertion_point(field_get:demo.AddReq.num1)
   return _internal_num1();
 }
 inline void AddReq::_internal_set_num1(int32_t value) {
@@ -390,7 +393,7 @@ inline void AddReq::_internal_set_num1(int32_t value) {
 }
 inline void AddReq::set_num1(int32_t value) {
   _internal_set_num1(value);
-  // @@protoc_insertion_point(field_set:AddReq.num1)
+  // @@protoc_insertion_point(field_set:demo.AddReq.num1)
 }
 
 // int32 num2 = 2;
@@ -401,7 +404,7 @@ inline int32_t AddReq::_internal_num2() const {
   return _impl_.num2_;
 }
 inline int32_t AddReq::num2() const {
-  // @@protoc_insertion_point(field_get:AddReq.num2)
+  // @@protoc_insertion_point(field_get:demo.AddReq.num2)
   return _internal_num2();
 }
 inline void AddReq::_internal_set_num2(int32_t value) {
@@ -410,7 +413,7 @@ inline void AddReq::_internal_set_num2(int32_t value) {
 }
 inline void AddReq::set_num2(int32_t value) {
   _internal_set_num2(value);
-  // @@protoc_insertion_point(field_set:AddReq.num2)
+  // @@protoc_insertion_point(field_set:demo.AddReq.num2)
 }
 
 // -------------------------------------------------------------------
@@ -425,7 +428,7 @@ inline int32_t AddRsp::_internal_ret() const {
   return _impl_.ret_;
 }
 inline int32_t AddRsp::ret() const {
-  // @@protoc_insertion_point(field_get:AddRsp.ret)
+  // @@protoc_insertion_point(field_get:demo.AddRsp.ret)
   return _internal_ret();
 }
 inline void AddRsp::_internal_set_ret(int32_t value) {
@@ -434,7 +437,7 @@ inline void AddRsp::_internal_set_ret(int32_t value) {
 }
 inline void AddRsp::set_ret(int32_t value) {
   _internal_set_ret(value);
-  // @@protoc_insertion_point(field_set:AddRsp.ret)
+  // @@protoc_insertion_point(field_set:demo.AddRsp.ret)
 }
 
 #ifdef __GNUC__
@@ -445,6 +448,7 @@ inline void AddRsp::set_ret(int32_t value) {
 
 // @@protoc_insertion_point(namespace_scope)
 
+}  // namespace demo
 
 // @@protoc_insertion_point(global_scope)
 

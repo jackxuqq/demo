@@ -20,6 +20,7 @@ PROTOBUF_PRAGMA_INIT_SEG
 namespace _pb = ::PROTOBUF_NAMESPACE_ID;
 namespace _pbi = _pb::internal;
 
+namespace demo {
 PROTOBUF_CONSTEXPR AddReq::AddReq(
     ::_pbi::ConstantInitialized): _impl_{
     /*decltype(_impl_.num1_)*/0
@@ -47,45 +48,46 @@ struct AddRspDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 AddRspDefaultTypeInternal _AddRsp_default_instance_;
+}  // namespace demo
 static ::_pb::Metadata file_level_metadata_demo_2eproto[2];
 static constexpr ::_pb::EnumDescriptor const** file_level_enum_descriptors_demo_2eproto = nullptr;
 static constexpr ::_pb::ServiceDescriptor const** file_level_service_descriptors_demo_2eproto = nullptr;
 
 const uint32_t TableStruct_demo_2eproto::offsets[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::AddReq, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::demo::AddReq, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::AddReq, _impl_.num1_),
-  PROTOBUF_FIELD_OFFSET(::AddReq, _impl_.num2_),
+  PROTOBUF_FIELD_OFFSET(::demo::AddReq, _impl_.num1_),
+  PROTOBUF_FIELD_OFFSET(::demo::AddReq, _impl_.num2_),
   ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::AddRsp, _internal_metadata_),
+  PROTOBUF_FIELD_OFFSET(::demo::AddRsp, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   ~0u,  // no _inlined_string_donated_
-  PROTOBUF_FIELD_OFFSET(::AddRsp, _impl_.ret_),
+  PROTOBUF_FIELD_OFFSET(::demo::AddRsp, _impl_.ret_),
 };
 static const ::_pbi::MigrationSchema schemas[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) = {
-  { 0, -1, -1, sizeof(::AddReq)},
-  { 8, -1, -1, sizeof(::AddRsp)},
+  { 0, -1, -1, sizeof(::demo::AddReq)},
+  { 8, -1, -1, sizeof(::demo::AddRsp)},
 };
 
 static const ::_pb::Message* const file_default_instances[] = {
-  &::_AddReq_default_instance_._instance,
-  &::_AddRsp_default_instance_._instance,
+  &::demo::_AddReq_default_instance_._instance,
+  &::demo::_AddRsp_default_instance_._instance,
 };
 
 const char descriptor_table_protodef_demo_2eproto[] PROTOBUF_SECTION_VARIABLE(protodesc_cold) =
-  "\n\ndemo.proto\"$\n\006AddReq\022\014\n\004num1\030\001 \001(\005\022\014\n\004"
-  "num2\030\002 \001(\005\"\025\n\006AddRsp\022\013\n\003ret\030\001 \001(\005b\006proto"
-  "3"
+  "\n\ndemo.proto\022\004demo\"$\n\006AddReq\022\014\n\004num1\030\001 \001"
+  "(\005\022\014\n\004num2\030\002 \001(\005\"\025\n\006AddRsp\022\013\n\003ret\030\001 \001(\005b"
+  "\006proto3"
   ;
 static ::_pbi::once_flag descriptor_table_demo_2eproto_once;
 const ::_pbi::DescriptorTable descriptor_table_demo_2eproto = {
-    false, false, 81, descriptor_table_protodef_demo_2eproto,
+    false, false, 87, descriptor_table_protodef_demo_2eproto,
     "demo.proto",
     &descriptor_table_demo_2eproto_once, nullptr, 0, 2,
     schemas, file_default_instances, TableStruct_demo_2eproto::offsets,
@@ -98,6 +100,7 @@ PROTOBUF_ATTRIBUTE_WEAK const ::_pbi::DescriptorTable* descriptor_table_demo_2ep
 
 // Force running AddDescriptors() at dynamic initialization time.
 PROTOBUF_ATTRIBUTE_INIT_PRIORITY2 static ::_pbi::AddDescriptorsRunner dynamic_init_dummy_demo_2eproto(&descriptor_table_demo_2eproto);
+namespace demo {
 
 // ===================================================================
 
@@ -109,7 +112,7 @@ AddReq::AddReq(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:AddReq)
+  // @@protoc_insertion_point(arena_constructor:demo.AddReq)
 }
 AddReq::AddReq(const AddReq& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
@@ -123,7 +126,7 @@ AddReq::AddReq(const AddReq& from)
   ::memcpy(&_impl_.num1_, &from._impl_.num1_,
     static_cast<size_t>(reinterpret_cast<char*>(&_impl_.num2_) -
     reinterpret_cast<char*>(&_impl_.num1_)) + sizeof(_impl_.num2_));
-  // @@protoc_insertion_point(copy_constructor:AddReq)
+  // @@protoc_insertion_point(copy_constructor:demo.AddReq)
 }
 
 inline void AddReq::SharedCtor(
@@ -138,7 +141,7 @@ inline void AddReq::SharedCtor(
 }
 
 AddReq::~AddReq() {
-  // @@protoc_insertion_point(destructor:AddReq)
+  // @@protoc_insertion_point(destructor:demo.AddReq)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -155,7 +158,7 @@ void AddReq::SetCachedSize(int size) const {
 }
 
 void AddReq::Clear() {
-// @@protoc_insertion_point(message_clear_start:AddReq)
+// @@protoc_insertion_point(message_clear_start:demo.AddReq)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -213,7 +216,7 @@ failure:
 
 uint8_t* AddReq::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:AddReq)
+  // @@protoc_insertion_point(serialize_to_array_start:demo.AddReq)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -233,12 +236,12 @@ uint8_t* AddReq::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:AddReq)
+  // @@protoc_insertion_point(serialize_to_array_end:demo.AddReq)
   return target;
 }
 
 size_t AddReq::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:AddReq)
+// @@protoc_insertion_point(message_byte_size_start:demo.AddReq)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -268,7 +271,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*AddReq::GetClassData() const {
 void AddReq::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
   auto* const _this = static_cast<AddReq*>(&to_msg);
   auto& from = static_cast<const AddReq&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:AddReq)
+  // @@protoc_insertion_point(class_specific_merge_from_start:demo.AddReq)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -283,7 +286,7 @@ void AddReq::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBU
 }
 
 void AddReq::CopyFrom(const AddReq& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:AddReq)
+// @@protoc_insertion_point(class_specific_copy_from_start:demo.AddReq)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -320,7 +323,7 @@ AddRsp::AddRsp(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
   SharedCtor(arena, is_message_owned);
-  // @@protoc_insertion_point(arena_constructor:AddRsp)
+  // @@protoc_insertion_point(arena_constructor:demo.AddRsp)
 }
 AddRsp::AddRsp(const AddRsp& from)
   : ::PROTOBUF_NAMESPACE_ID::Message() {
@@ -331,7 +334,7 @@ AddRsp::AddRsp(const AddRsp& from)
 
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   _this->_impl_.ret_ = from._impl_.ret_;
-  // @@protoc_insertion_point(copy_constructor:AddRsp)
+  // @@protoc_insertion_point(copy_constructor:demo.AddRsp)
 }
 
 inline void AddRsp::SharedCtor(
@@ -345,7 +348,7 @@ inline void AddRsp::SharedCtor(
 }
 
 AddRsp::~AddRsp() {
-  // @@protoc_insertion_point(destructor:AddRsp)
+  // @@protoc_insertion_point(destructor:demo.AddRsp)
   if (auto *arena = _internal_metadata_.DeleteReturnArena<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>()) {
   (void)arena;
     return;
@@ -362,7 +365,7 @@ void AddRsp::SetCachedSize(int size) const {
 }
 
 void AddRsp::Clear() {
-// @@protoc_insertion_point(message_clear_start:AddRsp)
+// @@protoc_insertion_point(message_clear_start:demo.AddRsp)
   uint32_t cached_has_bits = 0;
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
@@ -410,7 +413,7 @@ failure:
 
 uint8_t* AddRsp::_InternalSerialize(
     uint8_t* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:AddRsp)
+  // @@protoc_insertion_point(serialize_to_array_start:demo.AddRsp)
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
@@ -424,12 +427,12 @@ uint8_t* AddRsp::_InternalSerialize(
     target = ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
   }
-  // @@protoc_insertion_point(serialize_to_array_end:AddRsp)
+  // @@protoc_insertion_point(serialize_to_array_end:demo.AddRsp)
   return target;
 }
 
 size_t AddRsp::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:AddRsp)
+// @@protoc_insertion_point(message_byte_size_start:demo.AddRsp)
   size_t total_size = 0;
 
   uint32_t cached_has_bits = 0;
@@ -454,7 +457,7 @@ const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*AddRsp::GetClassData() const {
 void AddRsp::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBUF_NAMESPACE_ID::Message& from_msg) {
   auto* const _this = static_cast<AddRsp*>(&to_msg);
   auto& from = static_cast<const AddRsp&>(from_msg);
-  // @@protoc_insertion_point(class_specific_merge_from_start:AddRsp)
+  // @@protoc_insertion_point(class_specific_merge_from_start:demo.AddRsp)
   GOOGLE_DCHECK_NE(&from, _this);
   uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
@@ -466,7 +469,7 @@ void AddRsp::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message& to_msg, const ::PROTOBU
 }
 
 void AddRsp::CopyFrom(const AddRsp& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:AddRsp)
+// @@protoc_insertion_point(class_specific_copy_from_start:demo.AddRsp)
   if (&from == this) return;
   Clear();
   MergeFrom(from);
@@ -489,14 +492,15 @@ void AddRsp::InternalSwap(AddRsp* other) {
 }
 
 // @@protoc_insertion_point(namespace_scope)
+}  // namespace demo
 PROTOBUF_NAMESPACE_OPEN
-template<> PROTOBUF_NOINLINE ::AddReq*
-Arena::CreateMaybeMessage< ::AddReq >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::AddReq >(arena);
+template<> PROTOBUF_NOINLINE ::demo::AddReq*
+Arena::CreateMaybeMessage< ::demo::AddReq >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::demo::AddReq >(arena);
 }
-template<> PROTOBUF_NOINLINE ::AddRsp*
-Arena::CreateMaybeMessage< ::AddRsp >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::AddRsp >(arena);
+template<> PROTOBUF_NOINLINE ::demo::AddRsp*
+Arena::CreateMaybeMessage< ::demo::AddRsp >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::demo::AddRsp >(arena);
 }
 PROTOBUF_NAMESPACE_CLOSE
 

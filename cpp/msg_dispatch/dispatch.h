@@ -26,4 +26,6 @@ class AutoRegister{
 		}
 };
 
+bool proto_to_json(const google::protobuf::Message& message, std::string& json);
+bool json_to_proto(const std::string& json, google::protobuf::Message& message);
 void dispatch(string cmd, string arg);
