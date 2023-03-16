@@ -19,10 +19,10 @@ bool _json_to_proto(const std::string& json, google::protobuf::Message& message)
     return JsonStringToMessage(json, &message).ok();
 }
 
-void dispatch(const string& cmd, const string& arg, string& ret){
+int dispatch(const string& cmd, const string& arg, string& ret){
 	if (g_func_pool.find(cmd) == g_func_pool.end()) {
 		printf("cmd[%s] not found\n", cmd.c_str());
-		return;
+		return -1;
 	}
 	auto api = g_func_pool[cmd];
 
@@ -33,11 +33,13 @@ void dispatch(const string& cmd, const string& arg, string& ret){
 	//printf("go here1 arg[%s]\n", arg.c_str());
 	if (!_json_to_proto(arg, *req)){
 		printf("json_to_proto fail arg[%s] not match pb desc\n", arg.c_str());
-		return;
+		return -2;
 	}
 
 	api->Proc(req, rsp);
 	if (!_proto_to_json(*rsp, ret)){
 		printf("proto_to_json fail\n");
+		return -3;
 	}
+	return 0;
 }

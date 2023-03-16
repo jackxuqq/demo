@@ -28,4 +28,4 @@ class AutoRegister{
 		}
 };
 
-void dispatch(const string& cmd, const string& arg, string& ret);
+int dispatch(const string& cmd, const string& arg, string& ret);
