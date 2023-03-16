@@ -4,8 +4,18 @@
 #include "dispatch.h"
 #include "demo.pb.h"
 using namespace std;
-map<string, ModelAPI*> g_func_pool; 
 
+int main(int c, char** v){
+	string input("{\"num1\":1,\"num2\":2}");
+	string output;
+	string cmd = "Add";
+
+	dispatch(cmd, input, output);
+	printf("input[%s] output[%s]\n", input.c_str(), output.c_str());
+	return 0;
+}
+
+/*
 void test(){
 	demo::AddReq req;
 	req.set_num1(1);
@@ -16,14 +26,9 @@ void test(){
 		return;
 	}
 	printf("%s\n", json.c_str());
+	demo::AddReq req2;
+	string json2("{\"num1\":1,\"num2\":2}");
+	json_to_proto(json2, req2);
+	printf("req.num1=%d req.num2=%d\n", req2.num1(), req2.num2());
 }
-
-int main(int c, char** v){
-	test();
-
-	auto cmd = "Add";
-	printf("in %s\n", __FUNCTION__);
-	dispatch(cmd, "{\"num1\":1,\"num\":2}");
-
-	return 0;
-}
+*/

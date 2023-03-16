@@ -14,11 +14,13 @@ using namespace std;
 class ModelAPI{
 	public:
 	virtual int Proc(::google::protobuf::Message* req, ::google::protobuf::Message* rsp) = 0;
+	virtual ::google::protobuf::Message* CreateReq() = 0;
+	virtual ::google::protobuf::Message* CreateRsp() = 0;
 };
 
 extern map<string, ModelAPI*> g_func_pool; 
 
-
+// auto reg ModelAPI
 class AutoRegister{
 	public:
 		AutoRegister(string cmd, ModelAPI* api){
@@ -26,6 +28,4 @@ class AutoRegister{
 		}
 };
 
-bool proto_to_json(const google::protobuf::Message& message, std::string& json);
-bool json_to_proto(const std::string& json, google::protobuf::Message& message);
-void dispatch(string cmd, string arg);
+void dispatch(const string& cmd, const string& arg, string& ret);

@@ -1,9 +1,15 @@
 all:main
-main: main.o dispatch.o demo.pb.o func_add.o
-	g++ --std=c++11 -o $@ $^ -L/usr/local/Cellar/protobuf/21.4/lib/ -lprotobuf
+main: demo.pb.o main.o dispatch.o func_add.o
+	g++ -g --std=c++11 -o $@ $^ -lprotobuf
+
+demo.pb.cpp:demo.proto
+	protoc --cpp_out=. $<
+	mv demo.pb.cc demo.pb.cpp
 
 %.o:%.cpp
-	g++ --std=c++11 -c $< -o $@
-
+	g++ -g --std=c++11 -c $< -o $@
 clean:
 	rm -rf *.o
+	rm -f demo.pb.cpp
+	rm -f demo.pb.h
+	rm -f main
