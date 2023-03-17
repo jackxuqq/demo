@@ -29,3 +29,4 @@ class AutoRegister{
 };
 
 int dispatch(const string& cmd, const string& arg, string& ret);
+//int dispatch_ext(const string& cmd, const string& arg, string& ret);
