@@ -1,0 +1,21 @@
+cmake_minimum_required(VERSION 3.10)
+project (MSG_DISPATCH)
+
+find_package(Protobuf REQUIRED)
+if (PROTOBUF_FOUND) 
+	message("pb found")
+else () 
+	message("pb not found")
+endif ()
+
+PROTOBUF_GENERATE_CPP(PROTO_SRCS PROTO_HDRS demo.proto)
+message("PROTO_SRCS = ${PROTO_SRCS}")
+message("PROTO_HDRS = ${PROTO_HDRS}")
+message("Protobuf_INCLUDE_DIRS= ${Protobuf_INCLUDE_DIRS}")
+message("CMAKE_CURRENT_BINARY_DIR= ${CMAKE_CURRENT_BINARY_DIR}")
+
+set(SRC_LIST ${PROTO_HDRS} ${PROTO_SRCS} dispatch.cpp func_add.cpp main.cpp)
+include_directories(/usr/local/opt/protobuf/include ${Protobuf_INCLUDE_DIRS} ${CMAKE_SOURCE_DIR}/include ${CMAKE_CURRENT_BINARY_DIR})
+add_executable(main ${SRC_LIST})
+target_link_libraries(main ${Protobuf_LIBRARIES})
+set(CMAKE_CXX_FLAGS "--std=c++11 ${CMAKE_CXX_FLAGS}")
