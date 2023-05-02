@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+message Address {
+  string street = 1;
+  string road = 2;
+  int32 no = 3;
+}
+
+message Person {
+  int32 age = 1;
+  string name = 2;
+  Address& addr = 3;
+  int32 len_of_tags = 4;
+  repeated int32 arr = 5 [packed=true];
+}

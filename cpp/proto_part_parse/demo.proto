@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+message Point {
+	int32 x = 1;
+	int32 y = 2;
+	int32 z = 3;
+}
+
+message Triangle {
+	Point p1 = 1;
+	Point p2 = 2;
+	Point p3 = 3;
+}
+message ModelData{
+	int32 ret = 1;
+	repeated Triangle planes = 2;
+}
+
+
