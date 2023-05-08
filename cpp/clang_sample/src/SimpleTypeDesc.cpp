@@ -31,9 +31,9 @@ void SimpleTypeDesc::init(ParamType type, const std::string& customTypeName, con
     m_name = name;
 }
 
-int SimpleTypeDesc::parseStruct(Document& doc,const std::string& structName, SimpleStructDesc* desc)
+int SimpleTypeDesc::_parseStruct(Document& doc,const std::string& structName, SimpleStructDesc* ssDesc)
 {
-    std::string rawStructName = getRawStructName(structName);
+    std::string originStructName = JsonAstUtils::getOrigin(structName);
     RET_IF_FETCH_ARR_ERR(doc, "inner", inner, -11);
 
     for (auto i = 0; i < inner->Size(); ++i)
@@ -49,7 +49,7 @@ int SimpleTypeDesc::parseStruct(Document& doc,const std::string& structName, Sim
 
         RET_IF_FETCH_STR_ERR(obj, "name", sName, -13);
 
-        if (sName != rawStructName)
+        if (sName != originStructName)
         {
             continue;
         }
@@ -83,13 +83,13 @@ int SimpleTypeDesc::parseStruct(Document& doc,const std::string& structName, Sim
             {
                 fieldDesc.init(FieldTypeCustom, qualType, paramName);
             }
-            desc->m_fields.push_back(fieldDesc);
+            ssDesc->appendField(fieldDesc);
         }
-        desc->m_name = rawStructName;
+        ssDesc->setName(originStructName);
         return 0;
     }
 
-    std::cout << "rawStructName:" << rawStructName << std::endl;
+    std::cout << "originStructName:" << originStructName << std::endl;
     return -1000;
 }
 
@@ -109,34 +109,34 @@ int SimpleTypeDesc::makeDeps(Document& doc)
         std::vector<std::string> tmp;
         for (auto& curr : list)
         {
-            SimpleStructDesc desc;
-            auto ret = parseStruct(doc, curr, &desc);
+            SimpleStructDesc ssDesc;
+            auto ret = _parseStruct(doc, curr, &ssDesc);
 
             if (ret != 0)
             {
                 return ret;
             }
 
-            if (hash.find(desc.m_name) == hash.end())
+            if (hash.find(ssDesc.getName()) == hash.end())
             {
-                deps.push_back(desc);
-                hash[desc.m_name] = true;
+                deps.push_back(ssDesc);
+                hash[ssDesc.getName()] = true;
             }
             else
             {
                 for (auto itr = deps.begin(); itr != deps.end(); ++itr)
                 {
-                    if (itr->m_name == desc.m_name)
+                    if (itr->getName() == ssDesc.getName())
                     {
                         deps.erase(itr);
                         break;
                     }
 
                 }
-                deps.push_back(desc);
+                deps.push_back(ssDesc);
             }
 
-            for (auto& field : desc.m_fields)
+            for (auto& field : ssDesc.getFields())
             {
                 if (field.m_type == FieldTypeCustom)
                 {

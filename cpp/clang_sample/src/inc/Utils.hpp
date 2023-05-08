@@ -22,6 +22,7 @@
 #define CONTINUE_IF_FETCH_STR_ERR(doc, childName, varName) auto varName = JsonHelper::FetchString(doc, childName);\
                                                                if (varName == ""){continue;}
 
+/*rapidjson api helper*/
 class JsonHelper
 {
 public:
@@ -81,46 +82,68 @@ public:
     }
 };
 
-inline std::string getRawStructName(const std::string& name)
+
+class JsonAstUtils
 {
-    int idx = 0;
-    for(; idx < name.length(); ++idx)
+
+public:
+
+    /*
+        get origin type from complex type
+        like:
+            Account[10] => Account
+            Person *    => Person
+            Bank        => Bank
+    */
+    static std::string getOrigin(const std::string& name)
     {
-        if (name[idx] == ' ' || name[idx] == '[')
+        int idx = 0;
+        for(; idx < name.length(); ++idx)
         {
-            break;
+            if (name[idx] == ' ' || name[idx] == '[')
+            {
+                break;
+            }
         }
+
+        if (idx == name.length() - 1)
+        {
+            return name;
+        }
+
+        return name.substr(0, idx);
     }
 
-    if (idx == name.length() - 1)
+    /*
+        fmt char array
+        like:
+            char[10] => char[]
+            char[100] => char[]
+    */
+    static std::string fmtCharArray(const std::string& type)
     {
-        return name;
-    }
+        std::string ret;
 
-    return name.substr(0, idx);
-}
-
-inline std::string adapterCharArray(const std::string& type)
-{
-    std::string ret;
-
-    if (strstr(type.c_str(), "char[") != NULL)
-    {
-        ret = "char[]";
+        if (strstr(type.c_str(), "char[") != NULL)
+        {
+            ret = "char[]";
+        }
+        else
+        {
+            ret = type;
+        }
+        return ret;
     }
-    else
-    {
-        ret = type;
-    }
-    return ret;
-}
+};
 
 class NativeType
 {
 public:
+
+    /*convert string native type to enum*/
     static ParamType convert(const std::string& type)
     {
-        std::string ttype = adapterCharArray(type);
+        std::string ttype = JsonAstUtils::fmtCharArray(type);
 
         if (auto itr = m_supportType.find(ttype); itr != m_supportType.end())
         {
@@ -132,7 +155,7 @@ public:
 
     static bool isNative(const std::string& type)
     {
-        std::string ttype = adapterCharArray(type);
+        std::string ttype = JsonAstUtils::fmtCharArray(type);
 
         if (m_supportType.find(ttype) != m_supportType.end())
         {

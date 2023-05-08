@@ -8,24 +8,24 @@ int ProtoGenerateImpl::procCommFunc(const std::string& funcName)
     ApiParamTypeDescDict group;
 
     //step1: parse func params.
-    RET_IF_ERR(parseParams,funcName);
+    RET_IF_ERR(_parseParams,funcName);
 
     //step2: group params by attribute, and append default param.
-    groupParams();
+    _groupParams();
 
     //step3: construct proto request define
-    constructReq();
+    _constructReq();
 
     //step4: construct proto response define
-    constructRsp();
+    _constructRsp();
 
     //step5: construct proto interface define
-    constructIfc();
+    _constructIfc();
 
     return 0;
 }
 
-int ProtoGenerateImpl::parseParams(const std::string& funcName)
+int ProtoGenerateImpl::_parseParams(const std::string& funcName)
 {
     //assign m_params from m_doc
     Document& doc = *m_doc;
@@ -97,26 +97,45 @@ int ProtoGenerateImpl::parseParams(const std::string& funcName)
     return -100;
 }
 
-void ProtoGenerateImpl::groupParams()
+void ProtoGenerateImpl::_groupParams()
 {
     //assign m_group from m_params
     return;
 }
 
-void ProtoGenerateImpl::constructReq()
+void ProtoGenerateImpl::_constructReq()
 {
     //assign m_pbRequest from m_group[ApiParamTypeDescGroupIn]
     return;
 }
 
-void ProtoGenerateImpl::constructRsp()
+void ProtoGenerateImpl::_constructRsp()
 {
     //assign m_pbResponse from m_group[ApiParamTypeDescGroupOut]
     return;
 }
 
-void ProtoGenerateImpl::constructIfc()
+void ProtoGenerateImpl::_constructIfc()
 {
     //assign m_pbInterface from m_pbRequest and m_pbResponse
     return;
+}
+
+void ProtoGenerateImpl::printAll()
+{
+    std::cout << "total " << m_params.size() << " params:\n";
+    for (auto i = 0; i < m_params.size(); ++i)
+    {
+        if (i != 0)
+        {
+            std::cout << "----------------------------------------" << std::endl;
+        }
+        m_params[i].print();
+    }
+}
+
+int ProtoGenerateImpl::procMemFunc(const std::string& className, const std::string& funcName)
+{
+    //not implement
+    return 0;
 }

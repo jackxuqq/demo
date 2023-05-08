@@ -5,6 +5,7 @@ class ProtoGenerateImpl
 {
 using  ApiParamTypeDescArr = std::vector<ApiParamTypeDesc>;
 using  ApiParamTypeDescDict = std::unordered_map<std::string, std::vector<ApiParamTypeDesc> >;
+
 public:
 
     ProtoGenerateImpl(rapidjson::Document* doc)
@@ -12,54 +13,49 @@ public:
     {
     }
 
+    /*generate proto from common func*/
     int procCommFunc(const std::string& funcName);
 
-    int procMemFunc(const std::string& className, const std::string& funcName)
-    {
-        return 0; //not impl
-    }
+    /*generate proto from member func*/
+    int procMemFunc(const std::string& className, const std::string& funcName);
 
-    void printAll()
-    {
-        std::cout << "total " << m_params.size() << " params:\n";
-        for (auto i = 0; i < m_params.size(); ++i)
-        {
-            if (i != 0)
-            {
-                std::cout << "----------------------------------------" << std::endl;
-            }
-            m_params[i].print();
-        }
-    }
+    /*for debug*/
+    void printAll();
 
 private:
 
+    /*json format ast*/
     rapidjson::Document* m_doc{nullptr};
 
+    /*contain proto request message define*/
     std::string m_pbRequest;
 
+    /*contain proto reponse message define*/
     std::string m_pbResponse;
 
+    /*contain proto interface define*/
     std::string m_pbInterface;
 
+    /*interface all params desc*/
     ApiParamTypeDescArr m_params;
 
+    /*params group by in or out*/
     ApiParamTypeDescDict m_group;
 
 private:
 
     // parse func's paramters from json format ast
-    int parseParams(const std::string& funcName);
+    int _parseParams(const std::string& funcName);
 
     // group params to [in]params group and [out]params group, btw add default param like ctx
-    void groupParams();
+    void _groupParams();
 
     // construct request proto message by [in]params group
-    void constructReq();
+    void _constructReq();
 
     // construct response proto message by [out]params group
-    void constructRsp();
+    void _constructRsp();
 
     // construct interface by req and rsp
-    void constructIfc();
+    void _constructIfc();
 };
