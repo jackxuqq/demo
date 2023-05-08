@@ -20,6 +20,9 @@ public:
     /*generate proto from member func*/
     int procMemFunc(const std::string& className, const std::string& funcName);
 
+    /*save to a proto file*/
+    void save();
+
     /*for debug*/
     void printAll();
 

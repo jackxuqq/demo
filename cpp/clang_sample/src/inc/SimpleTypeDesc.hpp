@@ -7,11 +7,8 @@ struct SimpleStructDesc;
 struct SimpleTypeDesc
 {
 
-    /*get m_type */
-    std::string getTypeName();
-
     /*init private member*/
-    void init(ParamType type, const std::string& customTypeName, const std::string& name);
+    void init(SimpleType type, const std::string& customTypeName, const std::string& name);
 
     /*print*/
     void print();
@@ -25,6 +22,15 @@ struct SimpleTypeDesc
         return m_name;
     }
 
+    /*get m_type */
+    std::string getTypeName();
+
+    /*get m_deps*/
+    auto getDeps()
+    {
+        return m_deps;
+    }
+
 private:
 
     /*parse struct define from json*/
@@ -33,7 +39,7 @@ private:
 protected:
 
     /*builtin or custom*/
-    ParamType m_type;
+    SimpleType m_type;
 
     /*builtin or custom*/
     std::string m_customTypeName;
@@ -101,6 +107,16 @@ struct ApiParamTypeDesc :public SimpleTypeDesc
     {
         std::cout << "\tm_attr:" << m_attr << "\n";
         SimpleTypeDesc::print();
+    }
+
+    ParamAttribute getAttribute()
+    {
+        return m_attr;
+    }
+
+    void setAttribute(ParamAttribute attr)
+    {
+        m_attr = attr;
     }
 
 private:

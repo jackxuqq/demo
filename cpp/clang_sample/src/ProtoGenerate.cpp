@@ -23,6 +23,11 @@ int ProtoGenerate::procMemFunc(const std::string& className, const std::string& 
     return m_impl->procMemFunc(className, funcName);
 }
 
+void ProtoGenerate::save()
+{
+    m_impl->save();
+}
+
 void ProtoGenerate::printAll()
 {
     m_impl->printAll();

@@ -1,23 +1,8 @@
 #pragma once
 
-struct Addr{
-    char province[20];
-    char city[20];
-    char street[50];
-    char road[100];
-    int no;
-};
-
-
-struct Bank{
-    char name[20];
-    Addr addr;
-};
-
-struct Account{
-    int id;
-    int amt;
-    long open_ts;
-    Bank bank;
-};
+const int TEN = 10;
+const int TEN_BYTE = 10;
+const int TWENTY_BYTE = 20;
+const int FIFTY_BYTE = 50;
+const int HUNDRED_BYTE = 100;
 

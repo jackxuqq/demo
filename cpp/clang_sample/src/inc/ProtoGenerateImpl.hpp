@@ -19,6 +19,9 @@ public:
     /*generate proto from member func*/
     int procMemFunc(const std::string& className, const std::string& funcName);
 
+    /*save to a proto file*/
+    void save();
+
     /*for debug*/
     void printAll();
 
@@ -27,14 +30,17 @@ private:
     /*json format ast*/
     rapidjson::Document* m_doc{nullptr};
 
-    /*contain proto request message define*/
-    std::string m_pbRequest;
+    /*proto request message define*/
+    std::vector<std::string> m_pbRequest;
 
-    /*contain proto reponse message define*/
-    std::string m_pbResponse;
+    /*proto reponse message define*/
+    std::vector<std::string> m_pbResponse;
 
-    /*contain proto interface define*/
-    std::string m_pbInterface;
+    /*request and resonse dependence message define*/
+    std::vector<std::string> m_pbDeps;
+
+    /*proto interface define*/
+    std::vector<std::string> m_pbInterface;
 
     /*interface all params desc*/
     ApiParamTypeDescArr m_params;
@@ -44,18 +50,16 @@ private:
 
 private:
 
-    // parse func's paramters from json format ast
+    /* parse func's paramters from json format ast*/
     int _parseParams(const std::string& funcName);
 
-    // group params to [in]params group and [out]params group, btw add default param like ctx
+    /* group params to [in]params group and [out]params group, btw add default param like ctx*/
     void _groupParams();
 
-    // construct request proto message by [in]params group
-    void _constructReq();
+    /* construct request proto message by [in]params group */
+    void _constructReqRsp(const std::string& funcName);
 
-    // construct response proto message by [out]params group
-    void _constructRsp();
+    /* construct interface by req and rsp */
+    void _constructIfc(const std::string& funcName);
 
-    // construct interface by req and rsp
-    void _constructIfc();
 };

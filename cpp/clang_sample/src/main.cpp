@@ -32,5 +32,6 @@ int main(int c, char** v)
         std::cout << "ret:" << ret << std::endl;
         exit(-3);
     }
-    gen.printAll();
+    gen.save();
+    //gen.printAll();
 }

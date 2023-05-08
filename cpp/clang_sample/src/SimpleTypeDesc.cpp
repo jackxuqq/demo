@@ -4,27 +4,10 @@ using namespace rapidjson;
 
 std::string SimpleTypeDesc::getTypeName()
 {
-    switch(this->m_type)
-    {
-            case FieldTypeInt32:
-                    return  "int32";
-            case FieldTypeInt64:
-                    return "int64";
-            case FieldTypeString:
-                    return "string";
-            case FieldTypeFloat:
-                    return "float";
-            case FieldTypeDouble:
-                    return "double";
-            case FieldTypeCustom:
-                    return this->m_customTypeName;
-            default:
-                    return "";
-    }
-    return "";
+    return TypeMapping::toString(m_type, m_customTypeName);
 }
 
-void SimpleTypeDesc::init(ParamType type, const std::string& customTypeName, const std::string& name)
+void SimpleTypeDesc::init(SimpleType type, const std::string& customTypeName, const std::string& name)
 {
     m_type = type;
     m_customTypeName = customTypeName;
@@ -33,7 +16,8 @@ void SimpleTypeDesc::init(ParamType type, const std::string& customTypeName, con
 
 int SimpleTypeDesc::_parseStruct(Document& doc,const std::string& structName, SimpleStructDesc* ssDesc)
 {
-    std::string originStructName = JsonAstUtils::getOrigin(structName);
+    auto simpleType = TypeMapping::toSimpleType(structName);
+    std::string originStructName = TypeMapping::getOrigin(simpleType, structName);
     RET_IF_FETCH_ARR_ERR(doc, "inner", inner, -11);
 
     for (auto i = 0; i < inner->Size(); ++i)
@@ -75,14 +59,9 @@ int SimpleTypeDesc::_parseStruct(Document& doc,const std::string& structName, Si
 
             //to SimpleTypeDesc
             SimpleTypeDesc fieldDesc;
-            if (NativeType::isNative(qualType))
-            {
-                fieldDesc.init(NativeType::convert(qualType), "", paramName);
-            }
-            else
-            {
-                fieldDesc.init(FieldTypeCustom, qualType, paramName);
-            }
+            auto simpleType = TypeMapping::toSimpleType(qualType);
+            auto originTypeName = TypeMapping::getOrigin(simpleType, qualType);
+            fieldDesc.init(simpleType, originTypeName, paramName);
             ssDesc->appendField(fieldDesc);
         }
         ssDesc->setName(originStructName);
@@ -98,7 +77,7 @@ int SimpleTypeDesc::makeDeps(Document& doc)
     std::vector<SimpleStructDesc> deps;
     std::unordered_map<std::string, bool> hash;
 
-    if (this->m_type != FieldTypeCustom)
+    if (this->m_type != FieldTypeCustom && this->m_type != FieldTypeCustomArr)
     {
         return 0;
     }
@@ -138,7 +117,7 @@ int SimpleTypeDesc::makeDeps(Document& doc)
 
             for (auto& field : ssDesc.getFields())
             {
-                if (field.m_type == FieldTypeCustom)
+                if (field.m_type == FieldTypeCustom || field.m_type == FieldTypeCustomArr)
                 {
                     tmp.push_back(field.m_customTypeName);
                 }
