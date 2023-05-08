@@ -1,4 +1,5 @@
 #!/bin/bash
+#this script convert  c++ simple api to a proto interface
 
 clang++  -fsyntax-only -Xclang -ast-dump=json api_define/api.hpp > api_define/ast.json
 cp ./src/build/astToPB ./
