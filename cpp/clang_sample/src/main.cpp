@@ -3,17 +3,19 @@
 #include <sstream>
 
 #include "ProtoGenerate.hpp"
-
+#include "Utils.hpp"
 
 int main(int c, char** v)
 {
-    if (c != 2)
+    if (c != 3)
     {
-        std::cout << v[0]  << "\tast.json" << std::endl;
+        std::cout << v[0]  << "\tast.json apilist.txt" << std::endl;
         exit(-1);
     }
 
     std::ifstream in(v[1]);
+    std::ifstream apiList(v[2]);
+
     std::stringstream ss;
     ss << in.rdbuf();
 
@@ -24,14 +26,29 @@ int main(int c, char** v)
         exit(-2);
     }
 
-    std::string funcName = "GetPerson";
     ProtoGenerate gen(&doc);
-    auto ret = gen.procCommFunc(funcName);
-    if (ret != 0)
+
+    std::string line;
+    while (getline(apiList, line))
     {
-        std::cout << "ret:" << ret << std::endl;
-        exit(-3);
+        auto arr = StringUtils::split(line);
+        if (arr.size() != 3)
+        {
+            std::cout << "arr.size" << arr.size() << std::endl;
+            continue;
+        }
+
+        auto header = arr[0];
+        int line = atoi(arr[1].c_str());
+        auto funcName = arr[2];
+
+        auto ret = gen.procCommFunc(funcName, header, line);
+        if (ret != 0)
+        {
+            std::cout << "ret:" << ret << std::endl;
+            exit(-3);
+        }
     }
     gen.save();
-    //gen.printAll();
+    gen.printAll();
 }

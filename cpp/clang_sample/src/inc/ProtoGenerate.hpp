@@ -15,7 +15,7 @@ public:
     virtual ~ProtoGenerate();
 
     /*generate proto from common func*/
-    int procCommFunc(const std::string& funcName);
+    int procCommFunc(const std::string& funcName, const std::string& header, int line);
 
     /*generate proto from member func*/
     int procMemFunc(const std::string& className, const std::string& funcName);

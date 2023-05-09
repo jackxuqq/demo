@@ -30,4 +30,11 @@ struct Person{
     Account accs[TEN];
 };
 
+/**
+* @brief This function is a demo function
+*
+* @param[in]:                     id					is a id
+* @param[out]									person               is a person
+* @return error code(to be detailed)
+*/
 int GetPerson(long id, Person* person);

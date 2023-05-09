@@ -1,8 +1,9 @@
 #include "ProtoGenerateImpl.hpp"
+#include "ParseComment.hpp"
 
 using namespace rapidjson;
 
-int ProtoGenerateImpl::procCommFunc(const std::string& funcName)
+int ProtoGenerateImpl::procCommFunc(const std::string& funcName, const std::string& header, int line)
 {
     ApiParamTypeDescArr params;
     ApiParamTypeDescDict group;
@@ -11,7 +12,7 @@ int ProtoGenerateImpl::procCommFunc(const std::string& funcName)
     RET_IF_ERR(_parseParams,funcName);
 
     /*step2: group params by attribute, and append default param*/
-    _groupParams();
+    _groupParams(header, line);
 
     /*step3: construct proto request and response define*/
     _constructReqRsp(funcName);
@@ -102,10 +103,11 @@ int ProtoGenerateImpl::_parseParams(const std::string& funcName)
     return -100;
 }
 
-void ProtoGenerateImpl::_groupParams()
+void ProtoGenerateImpl::_groupParams(const std::string& header, int line)
 {
 
     /*TODO: mock logic, first is in second is out */
+    /*
     for (auto i = 0; i < m_params.size(); ++i)
     {
         if (i == 0)
@@ -117,6 +119,18 @@ void ProtoGenerateImpl::_groupParams()
             m_params[i].setAttribute(ParamAttributeOut);
         }
     }
+    */
+
+    ParseComment pc(header, line);
+    pc.procParams();
+
+    for (auto i = 0; i < m_params.size(); ++i)
+    {
+        auto attr = pc.getAttr(m_params[i].getName());
+        m_params[i].setAttribute(attr);
+    }
+
+    pc.printf();
 
     /*assign m_group from m_params*/
     for (auto& p : m_params)

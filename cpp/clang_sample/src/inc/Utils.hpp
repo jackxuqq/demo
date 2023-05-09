@@ -82,3 +82,75 @@ public:
     }
 };
 
+class StringUtils
+{
+public:
+
+    /*trim beginning space and tail space*/
+    static std::string trim(const std::string& s)
+    {
+        std::string ret;
+        int begin = 0;
+        int end = s.length() - 1;
+        for (auto i = 0; i < s.length(); ++i)
+        {
+            if (s[i] == ' ' || s[i] == '\t')
+            {
+                ++begin;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        for (auto i = s.length() - 1; i >= 0 && end >= begin; --i)
+        {
+            if (s[i] == ' ' || s[i] == '\t')
+            {
+                --end;
+            }
+            else
+            {
+                break;
+            }
+        }
+
+        ret = s.substr(begin, end - begin + 1);
+        return ret;
+    }
+
+
+    static std::vector<std::string> split(const std::string& src)
+    {
+        std::vector<std::string> ret;
+        std::string tmp;
+
+        for (auto i = 0; i < src.length(); ++i)
+        {
+            if (src[i] == ' '|| src[i] == '\t')
+            {
+                if (tmp.length() > 0)
+                {
+                    ret.push_back(tmp);
+                    tmp = "";
+                }
+            }
+            else
+            {
+                tmp += src[i];
+            }
+
+            if (i == src.length() - 1)
+            {
+                if (tmp.length() > 0)
+                {
+                    ret.push_back(tmp);
+                }
+            }
+        }
+
+        return ret;
+    }
+};
+

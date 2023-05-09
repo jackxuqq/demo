@@ -13,9 +13,9 @@ ProtoGenerate::~ProtoGenerate()
     delete m_impl;
 }
 
-int ProtoGenerate::procCommFunc(const std::string& funcName)
+int ProtoGenerate::procCommFunc(const std::string& funcName, const std::string& header, int line)
 {
-    return m_impl->procCommFunc(funcName);
+    return m_impl->procCommFunc(funcName, header, line);
 }
 
 int ProtoGenerate::procMemFunc(const std::string& className, const std::string& funcName)

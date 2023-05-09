@@ -14,7 +14,7 @@ public:
     }
 
     /*generate proto from common func*/
-    int procCommFunc(const std::string& funcName);
+    int procCommFunc(const std::string& funcName, const std::string& header, int line);
 
     /*generate proto from member func*/
     int procMemFunc(const std::string& className, const std::string& funcName);
@@ -54,7 +54,7 @@ private:
     int _parseParams(const std::string& funcName);
 
     /* group params to [in]params group and [out]params group, btw add default param like ctx*/
-    void _groupParams();
+    void _groupParams(const std::string& header, int line);
 
     /* construct request proto message by [in]params group */
     void _constructReqRsp(const std::string& funcName);
