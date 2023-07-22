@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <cstring>
 
 
@@ -16,6 +17,7 @@ void func2(char ** p)
 
 int main()
 {
+    std::string str = "abc";
 	const char* p;
 	func1(&p);
 	//coredump below
