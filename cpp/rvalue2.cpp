@@ -8,7 +8,13 @@ class Object
 public:
     Object(const std::string& data)
     {
+        std::cout << "call constuct" << std::endl;
         m_data = data;
+    }
+
+    Object(Object& o)
+    {
+        std::cout << "call copy construct" << std::endl;
     }
 
     Object& operator=(Object&& o)
@@ -63,6 +69,7 @@ void process(Object&& o) {
 // rval ref to a lval, do not change zhe  lval's life
 void case1()
 {
+    std::cout << "------------case1------------------" << std::endl;
     Object o("Init");
     process(std::move(o));  // 传入左值
     o.print();
@@ -71,7 +78,11 @@ void case1()
 // rval ref to a rval, contine rval's life avoid copy
 void case2()
 {
-    process2(createObject("Init"));
+    std::cout << "------------case2------------------" << std::endl;
+    process(createObject("Init"));
+    //Object tmp =  std::move(createObject("Init2"));
+    Object tmp =  createObject("Init2");
+    tmp.print();
 }
 
 int main()
