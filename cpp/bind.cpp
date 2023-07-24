@@ -5,7 +5,7 @@
 
 
 void funcA(int a, int d){
-	std::cout << a   << "\t" << d << std::endl;
+    std::cout << a   << "\t" << d << std::endl;
 }
 
 class Object {
@@ -13,12 +13,12 @@ class Object {
     template <typename _Fx, typename... Args>
     void handle(_Fx&& _Func, Args... args) {
         auto handleFunction = std::bind(_Func, args...);
-	m_factory["funcA"] = handleFunction; 
+    m_factory["funcA"] = handleFunction; 
     }
 
    void call(const std::string& fcName){
-   	auto func = m_factory[fcName];
-	func(1,2);
+       auto func = m_factory[fcName];
+    func(1,2);
    }
    private:
    std::map<std::string, std::function<void(int,int)>> m_factory;
