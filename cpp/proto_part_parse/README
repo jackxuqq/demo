@@ -1,0 +1,5 @@
+this programe test for below case 4:
+1) big data transfer maybe near to G
+2) grpc stream interface
+3) data have not bound, split by frame size
+4) parse side maybe got a not complete data 

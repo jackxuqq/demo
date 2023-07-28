@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+message OptContext{
+    string m_userId = 1;
+    string m_modelId = 2;
+}
+
+message Addr {
+    string province = 1;
+    string city = 2;
+    string street = 3;
+    string road = 4;
+    int32 no = 5;
+}
+
+message Bank {
+    string name = 1;
+    Addr addr = 2;
+}
+
+message Account {
+    int32 id = 1;
+    int32 amt = 2;
+    int64 open_ts = 3;
+    Bank bank = 4;
+}
+
+message Person {
+    int64 id = 1;
+    string name = 2;
+    int32 age = 3;
+    Addr addr = 4;
+    repeated Account accs = 5;
+}
+
+message GetPersonReq {
+    OptContext ctx = 1;
+    int64 id = 2;
+}
+
+message GetPersonRsp {
+    OptContext ctx = 1;
+    Person person = 2;
+}
+
+service ModelEngine {
+    rpc GetPerson(GetPersonReq) returns (GetPersonRsp){}
+}
