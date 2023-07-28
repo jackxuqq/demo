@@ -20,34 +20,34 @@ bool _json_to_proto(const std::string& json, google::protobuf::Message& message)
 }
 
 int dispatch(const string& cmd, const string& arg, string& ret){
-	if (g_func_pool.find(cmd) == g_func_pool.end()) {
-		printf("cmd[%s] not found\n", cmd.c_str());
-		return -1;
-	}
-	auto api = g_func_pool[cmd];
+    if (g_func_pool.find(cmd) == g_func_pool.end()) {
+        printf("cmd[%s] not found\n", cmd.c_str());
+        return -1;
+    }
+    auto api = g_func_pool[cmd];
 
-	::google::protobuf::Message* req;	
-	::google::protobuf::Message* rsp;	
-	req = api->CreateReq();
-	rsp = api->CreateRsp();
-	//printf("go here1 arg[%s]\n", arg.c_str());
-	if (!_json_to_proto(arg, *req)){
-		printf("json_to_proto fail arg[%s] not match pb desc\n", arg.c_str());
-		return -2;
-	}
+    ::google::protobuf::Message* req;    
+    ::google::protobuf::Message* rsp;    
+    req = api->CreateReq();
+    rsp = api->CreateRsp();
+    //printf("go here1 arg[%s]\n", arg.c_str());
+    if (!_json_to_proto(arg, *req)){
+        printf("json_to_proto fail arg[%s] not match pb desc\n", arg.c_str());
+        return -2;
+    }
 
-	api->Proc(req, rsp);
-	if (!_proto_to_json(*rsp, ret)){
-		printf("proto_to_json fail\n");
-		return -3;
-	}
-	return 0;
+    api->Proc(req, rsp);
+    if (!_proto_to_json(*rsp, ret)){
+        printf("proto_to_json fail\n");
+        return -3;
+    }
+    return 0;
 }
 
 //====================================try dynamic parse pb============================
 #if 0
 ::google::protobuf::Message* _dynamic_parse(const std::string& filename,
-	       		const std::string& classname){
+                   const std::string& classname){
     auto pos = filename.find_last_of('/');
     std::string path;
     std::string file;
@@ -81,24 +81,24 @@ int dispatch(const string& cmd, const string& arg, string& ret){
 }
 
 int dispatch_ext(const string& cmd, const string& arg, string& ret){
-	if (g_func_pool.find(cmd) == g_func_pool.end()) {
-		printf("cmd[%s] not found\n", cmd.c_str());
-		return -1;
-	}
-	auto api = g_func_pool[cmd];
-	auto req = _dynamic_parse("demo.proto", "demo." + cmd + "Req");
-	auto rsp = _dynamic_parse("demo.proto", "demo." + cmd + "Rsp");
+    if (g_func_pool.find(cmd) == g_func_pool.end()) {
+        printf("cmd[%s] not found\n", cmd.c_str());
+        return -1;
+    }
+    auto api = g_func_pool[cmd];
+    auto req = _dynamic_parse("demo.proto", "demo." + cmd + "Req");
+    auto rsp = _dynamic_parse("demo.proto", "demo." + cmd + "Rsp");
 
-	if (!_json_to_proto(arg, *req)){
-		printf("json_to_proto fail arg[%s] not match pb desc\n", arg.c_str());
-		return -2;
-	}
+    if (!_json_to_proto(arg, *req)){
+        printf("json_to_proto fail arg[%s] not match pb desc\n", arg.c_str());
+        return -2;
+    }
 
-	api->Proc(req, rsp);
-	if (!_proto_to_json(*rsp, ret)){
-		printf("proto_to_json fail\n");
-		return -3;
-	}
-	return 0;
+    api->Proc(req, rsp);
+    if (!_proto_to_json(*rsp, ret)){
+        printf("proto_to_json fail\n");
+        return -3;
+    }
+    return 0;
 }
 #endif
