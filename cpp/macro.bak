@@ -1,0 +1,124 @@
+#include <iostream>
+#include <string>
+#include <map>
+#include <vector>
+#include <unordered_map>
+
+class Geometry{};
+class Line :public Geometry{};
+class Circle :public Geometry{};
+class Torus :public Geometry{};
+
+#define DECLARE_FUNC(name) m_supportedGeometry.push_back(std::make_pair(#name, name));
+
+class DistanceComputation;
+using DistFuncPtr = void (DistanceComputation::*) ();
+//typedef void (DistanceComputation::*DistFuncPtr) ();
+
+class DistanceComputation
+{
+
+public:
+    DistanceComputation(const Geometry& g1, const Geometry& g2)
+    :m_g1(&g1), m_g2(&g2)
+    {
+        init();
+    }
+
+    double getResult(){return m_result;}
+
+    void calc();
+
+    void init();
+
+private:
+    const Geometry* m_g1;
+    const Geometry* m_g2;
+    double m_result;
+    std::vector<std::pair<std::string,DistFuncPtr> > m_supportedGeometry;
+    std::unordered_map<std::string, DistFuncPtr> m_factory;
+    void autoRegister();
+
+private:
+    //never inline
+    void lineDistLine();
+    void lineDistCircle();
+    void lineDistTorus();
+    void circleDistLine();
+    void circleDistCircle();
+    void circleDistTorus();
+    void torusDistLine();
+    void torusDistCircle();
+    void torusDistTorus();
+    //add new geometry func here
+
+    void declareFunc();
+};
+
+//static std::vector<std::pair<std::string,DistFuncPtr> > m_supportedGeometry{};
+//static std::unordered_map<std::string, DistFuncPtr> m_factory{};
+void DistanceComputation::lineDistLine(){ std::cout << "Call:" << __FUNCTION__ << std::endl;}
+void DistanceComputation::lineDistCircle(){ std::cout << "Call:" << __FUNCTION__ << std::endl;}
+void DistanceComputation::lineDistTorus(){ std::cout << "Call:" << __FUNCTION__ << std::endl;}
+void DistanceComputation::circleDistLine(){ std::cout << "Call:" << __FUNCTION__ << std::endl;}
+void DistanceComputation::circleDistCircle(){ std::cout << "Call:" << __FUNCTION__ << std::endl;}
+void DistanceComputation::circleDistTorus(){ std::cout << "Call:" << __FUNCTION__ << std::endl;}
+void DistanceComputation::torusDistLine(){ std::cout << "Call:" << __FUNCTION__ << std::endl;}
+void DistanceComputation::torusDistCircle(){ std::cout << "Call:" << __FUNCTION__ << std::endl;}
+void DistanceComputation::torusDistTorus(){ std::cout << "Call:" << __FUNCTION__ << std::endl;}
+void DistanceComputation::calc()
+{
+    auto name = typeid(this->m_g1).name() + std::string("Dist") + typeid(this->m_g2).name();
+    //TODO: trim prefix number / first letter to lower case
+    if (auto itr = m_factory.find(name); itr != m_factory.end())
+    {
+        auto funcPtr = itr->second;
+        (this->*funcPtr)();
+    }
+    else
+    {
+        std::cout << "func_name[" << name << "] not found!" << std::endl;
+    }
+}
+
+void DistanceComputation::init()
+{
+    declareFunc();
+    autoRegister();
+}
+
+void DistanceComputation::autoRegister()
+{
+    for (auto& curr: m_supportedGeometry)
+    {
+        m_factory[curr.first] = curr.second;
+    }
+}
+void DistanceComputation::declareFunc()
+{
+    DECLARE_FUNC(&DistanceComputation::lineDistLine);
+    DECLARE_FUNC(&DistanceComputation::lineDistCircle);
+    DECLARE_FUNC(&DistanceComputation::lineDistTorus);
+    DECLARE_FUNC(&DistanceComputation::circleDistLine);
+    DECLARE_FUNC(&DistanceComputation::circleDistCircle);
+    DECLARE_FUNC(&DistanceComputation::circleDistTorus);
+    DECLARE_FUNC(&DistanceComputation::torusDistLine);
+    DECLARE_FUNC(&DistanceComputation::torusDistCircle);
+    DECLARE_FUNC(&DistanceComputation::torusDistTorus);
+    //declare here after add new geometry func
+}
+
+
+int main()
+{
+
+    Line l1,l2;
+    Circle c1,c2;
+    Torus t1,t2;
+
+    //line dist line
+    DistanceComputation dc(l1,l2);
+    dc.calc();
+
+    return 0;
+}
